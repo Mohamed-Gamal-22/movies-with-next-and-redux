@@ -1,0 +1,22 @@
+-- import any js file inside _app but inside useEffect with require not import 
+-------------------------------------------------------------------------------
+-- using redux-toolkit with getserversideprops was a problem but it has been solved
+---------------------------------------------------------------------------------------
+-- handle images inside next was issue
+
+import Image from 'next/image';
+
+function MyComponent() {
+  return (
+    <div>
+      <Image
+        src="/my-image.jpg"
+        alt="My Image"
+        width={500}
+        height={500}
+      />
+    </div>
+  );
+}
+
+---------------------------------------------------------------------------------------------------

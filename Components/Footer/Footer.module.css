@@ -1,0 +1,36 @@
+.bg {
+    border-top: 3px solid #1c8be5;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .item {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  @media (max-width: 768px) {
+    .item {
+      flex-direction: column;
+    }
+  
+    .left {
+      margin-bottom: 10px !important;
+    }
+  }
+  
+  .right {
+    cursor: pointer;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+  }
+  
+  .right:hover {
+    color: yellow !important;
+  }
+  
