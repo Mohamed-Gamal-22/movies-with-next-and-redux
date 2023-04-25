@@ -1,7 +1,10 @@
 import Link from "next/link";
 import style from "./Navbar.module.css";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
+  const { userData } = useSelector((state) => state.userLoginAuth);
+
   return (
     <>
       <nav className={`navbar navbar-expand-lg ${style.bg} fixed-top`}>
@@ -58,46 +61,66 @@ export default function Navbar() {
               </ul>
             </>
             <>
-              <li className="nav-item d-flex align-items-center">
+              <li className="nav-item ms-auto d-flex align-items-center">
                 <span
                   onClick={() => goToProfile()}
-                  className={`nav-link ${style.color} mx-5 fw-bold text-warning`}
-                ></span>
+                  className={`nav-lin ${style.name} ms-5 fw-bold`}
+                >
+                  {userData
+                    ? userData.first_name + " " + userData.last_name
+                    : ""}
+                </span>
               </li>
             </>
             <>
               <ul className="navbar-nav ms-auto">
-                <li
-                  className={`nav-item text-white me-3 d-flex align-items-center`}
-                >
-                  <i
-                    className={`fa-brands fs-5 mx-2 fa-facebook ${style.icon}`}
-                  ></i>
-                  <i
-                    className={`fa-brands fs-5 mx-2 fa-youtube ${style.icon}`}
-                  ></i>
-                  <i
-                    className={`fa-brands fs-5 mx-2 fa-instagram ${style.icon}`}
-                  ></i>
-                  <i
-                    className={`fa-brands fs-5 mx-2 fa-spotify ${style.icon}`}
-                  ></i>
-                </li>
-                <li className="nav-item">
-                  <Link className={`nav-link ${style.color}`} href="login">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className={`nav-link ${style.color}`} href="register">
-                    Register
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className={`nav-link ${style.color}`} href="register">
-                    Logout
-                  </Link>
-                </li>
+                {!userData ? (
+                  <>
+                    {" "}
+                    <li
+                      className={`nav-item text-white me-3 d-flex align-items-center`}
+                    >
+                      <i
+                        className={`fa-brands fs-5 mx-2 fa-facebook ${style.icon}`}
+                      ></i>
+                      <i
+                        className={`fa-brands fs-5 mx-2 fa-youtube ${style.icon}`}
+                      ></i>
+                      <i
+                        className={`fa-brands fs-5 mx-2 fa-instagram ${style.icon}`}
+                      ></i>
+                      <i
+                        className={`fa-brands fs-5 mx-2 fa-spotify ${style.icon}`}
+                      ></i>
+                    </li>
+                  </>
+                ) : (
+                  ""
+                )}
+                {!userData ? (
+                  <>
+                    {" "}
+                    <li className="nav-item">
+                      <Link className={`nav-link ${style.color}`} href="login">
+                        Login
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className={`nav-link ${style.color}`}
+                        href="register"
+                      >
+                        Register
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <li className="nav-item">
+                    <Link className={`nav-link ${style.color}`} href="login">
+                      Logout
+                    </Link>
+                  </li>
+                )}
               </ul>
             </>
           </div>

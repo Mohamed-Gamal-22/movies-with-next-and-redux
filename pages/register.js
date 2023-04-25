@@ -2,6 +2,7 @@
 // import Image from 'next/image'
 import { useState } from "react";
 import style from "../styles/registerAndLogin.module.css";
+import styles from "../styles/loginAuth.module.css"
 import Joi from "joi";
 import { useDispatch, useSelector } from "react-redux";
 import { checkRegisterUser } from "./../store/userAuthSlice";
@@ -58,100 +59,102 @@ export default function Home() {
 
   return (
     <>
-      <div className="container mt-5 text-white">
-        <form
-          onSubmit={submitData}
-          className={`${style.form} mx-auto text-capitalize positio-relative`}
-        >
-          {message ? (
-            <div className="alert alert-primary" role="alert">
-              {message}
-            </div>
-          ) : (
-            ""
-          )}
-          {joiError.length > 0
-            ? joiError.map((error, index) => (
-                <div className="alert alert-danger" key={index}>
-                  {error.message}
-                </div>
-              ))
-            : ""}
-          <div className="cont mb-4">
-            <label htmlFor="first_name" className="form-label">
-              first name :
-            </label>
-            <input
-              onChange={getData}
-              type="text"
-              className="form-control"
-              id="first_name"
-              placeholder="Enter First Name"
-              name="first_name"
-            />
-          </div>
-          <div className="cont mb-4">
-            <label htmlFor="last_name" className="form-label">
-              last name :
-            </label>
-            <input
-              onChange={getData}
-              type="text"
-              className="form-control"
-              id="last_name"
-              placeholder="Enter Last Name"
-              name="last_name"
-            />
-          </div>
-          <div className="cont mb-4">
-            <label htmlFor="age" className="form-label">
-              age :
-            </label>
-            <input
-              onChange={getData}
-              type="number"
-              className="form-control"
-              id="age"
-              placeholder="Enter Age"
-              name="age"
-            />
-          </div>
-          <div className="cont mb-4">
-            <label htmlFor="email" className="form-label">
-              email :
-            </label>
-            <input
-              onChange={getData}
-              type="text"
-              className="form-control"
-              id="email"
-              placeholder="Enter Email"
-              name="email"
-            />
-          </div>
-          <div className="cont mb-4">
-            <label htmlFor="password" className="form-label">
-              password
-            </label>
-            <input
-              onChange={getData}
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Enter Password"
-              name="password"
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            {loading ? (
-              <div>
-                <i className="fa-solid fa-spinner fa-spin bg-primary"></i>
+      <div className={`${styles.a}`}>
+        <div className="container mt-5 text-white">
+          <form
+            onSubmit={submitData}
+            className={`${style.form} mx-auto text-capitalize positio-relative`}
+          >
+            {message ? (
+              <div className="alert alert-primary" role="alert">
+                {message}
               </div>
             ) : (
-              "Register"
+              ""
             )}
-          </button>
-        </form>
+            {joiError.length > 0
+              ? joiError.map((error, index) => (
+                  <div className="alert alert-danger" key={index}>
+                    {error.message}
+                  </div>
+                ))
+              : ""}
+            <div className="cont mb-4">
+              <label htmlFor="first_name" className="form-label">
+                first name :
+              </label>
+              <input
+                onChange={getData}
+                type="text"
+                className="form-control"
+                id="first_name"
+                placeholder="Enter First Name"
+                name="first_name"
+              />
+            </div>
+            <div className="cont mb-4">
+              <label htmlFor="last_name" className="form-label">
+                last name :
+              </label>
+              <input
+                onChange={getData}
+                type="text"
+                className="form-control"
+                id="last_name"
+                placeholder="Enter Last Name"
+                name="last_name"
+              />
+            </div>
+            <div className="cont mb-4">
+              <label htmlFor="age" className="form-label">
+                age :
+              </label>
+              <input
+                onChange={getData}
+                type="number"
+                className="form-control"
+                id="age"
+                placeholder="Enter Age"
+                name="age"
+              />
+            </div>
+            <div className="cont mb-4">
+              <label htmlFor="email" className="form-label">
+                email :
+              </label>
+              <input
+                onChange={getData}
+                type="text"
+                className="form-control"
+                id="email"
+                placeholder="Enter Email"
+                name="email"
+              />
+            </div>
+            <div className="cont mb-4">
+              <label htmlFor="password" className="form-label">
+                password
+              </label>
+              <input
+                onChange={getData}
+                type="password"
+                className="form-control"
+                id="password"
+                placeholder="Enter Password"
+                name="password"
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">
+              {loading ? (
+                <div>
+                  <i className="fa-solid fa-spinner fa-spin bg-primary"></i>
+                </div>
+              ) : (
+                "Register"
+              )}
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
