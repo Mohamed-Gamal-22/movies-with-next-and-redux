@@ -33,7 +33,7 @@ export default function Home() {
       if (res.payload.message === "success") {
         ////////
         alert("successfully login process");
-        router.push("/movies")
+        router.push("/")
       }
     }
   };
