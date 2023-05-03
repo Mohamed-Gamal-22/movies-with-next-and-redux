@@ -1,8 +1,10 @@
 import store from "@/store";
-import { getDetailsTv } from "@/store/tvDetailsSlice";
+import { getDetailsTv, getTvVideo } from "@/store/tvDetailsSlice";
 
-export default function details({ detailsTv }) {
+export default function details({ detailsTv, tvVideo }) {
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
+  const baseYoutube = `https://www.youtube.com/embed/`;
+  const secondYoutube = `${tvVideo.results[0].key}`;
 
   console.log(detailsTv);
   return (
@@ -37,6 +39,14 @@ export default function details({ detailsTv }) {
                 {detailsTv.first_air_date}
               </span>
             </span>
+            <iframe
+              className="my-5"
+              width="450"
+              height="300"
+              src={baseYoutube + secondYoutube}
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       </div>
@@ -46,12 +56,19 @@ export default function details({ detailsTv }) {
 
 export async function getServerSideProps(context) {
   const { tvDetailsId } = context.params;
+
+  // get tv details
   await store.dispatch(getDetailsTv(tvDetailsId));
   const detailsTv = store.getState().tvDetailsSlice.detailsTv;
+
+  // get tv video
+  await store.dispatch(getTvVideo(tvDetailsId));
+  const tvVideo = store.getState().tvDetailsSlice.tvVideo;
 
   return {
     props: {
       detailsTv,
+      tvVideo,
     },
   };
 }

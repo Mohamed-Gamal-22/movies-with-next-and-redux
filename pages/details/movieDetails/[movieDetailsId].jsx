@@ -1,16 +1,17 @@
 import store from "@/store";
-import { getDetailsMovie } from "@/store/movieDetailsSlice";
+import { getDetailsMovie, getMovieVideo } from "@/store/movieDetailsSlice";
 
-export default function details({ detailsMovie }) {
+export default function details({ detailsMovie, movieVideo }) {
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
+  const baseYoutube = `https://www.youtube.com/embed/`;
+  const secondYoutube = `${movieVideo.results[0].key}`;
 
-  console.log(detailsMovie);
   return (
     <>
       <div className="container">
         <div className="row align-items-center">
           <div className="col-md-6">
-            <div className="myImage p-5 mt-5">
+            <div className="myImage p-5 mt-5 text-center">
               <img
                 src={baseUrlImg + detailsMovie.poster_path}
                 alt="movie img"
@@ -37,6 +38,15 @@ export default function details({ detailsMovie }) {
                 {detailsMovie.release_date}
               </span>
             </span>
+
+            <iframe
+            className="my-5"
+              width="450"
+              height="300"
+              src={baseYoutube+secondYoutube}
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       </div>
@@ -47,12 +57,19 @@ export default function details({ detailsMovie }) {
 export async function getServerSideProps(context) {
   console.log(context);
   const { movieDetailsId } = context.params;
+
+  // get details
   await store.dispatch(getDetailsMovie(movieDetailsId));
   const detailsMovie = store.getState().movieDetailsSlice.detailsMovie;
+
+  // get video
+  await store.dispatch(getMovieVideo(movieDetailsId));
+  const movieVideo = store.getState().movieDetailsSlice.movieVideo;
 
   return {
     props: {
       detailsMovie,
+      movieVideo,
     },
   };
 }
