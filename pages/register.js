@@ -2,7 +2,7 @@
 // import Image from 'next/image'
 import { useState } from "react";
 import style from "../styles/registerAndLogin.module.css";
-import styles from "../styles/loginAuth.module.css"
+import styles from "../styles/loginAuth.module.css";
 import Joi from "joi";
 import { useDispatch, useSelector } from "react-redux";
 import { checkRegisterUser } from "./../store/userAuthSlice";
@@ -33,7 +33,7 @@ export default function Home() {
       console.log(res);
       if (res.payload.message === "success") {
         alert("successfully registerd");
-        router.push("/movies");
+        router.push("/login");
       }
     }
   };

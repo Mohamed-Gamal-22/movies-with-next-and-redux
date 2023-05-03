@@ -15,9 +15,11 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import dynamic from "next/dynamic";
 
 import style from "./Carousel.module.css";
+import { useRouter } from "next/router";
 
 export default function Carousle({ trending }) {
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
+  const router = useRouter();
   const options = {
     margin: 20,
     responsiveClass: true,
@@ -34,9 +36,15 @@ export default function Carousle({ trending }) {
     },
   };
 
-  // const goToDetails = (item) => {
-  //   console.log(item);
-  // };
+  const goToDetails = (item) => {
+    if (item.media_type == "movie") {
+      router.push(`/details/movieDetails/${item.id}`);
+    } else if (item.media_type == "tv") {
+      router.push(`/details/tvDetails/${item.id}`);
+    } else if (item.media_type == "person") {
+      router.push(`/details/personDetails/${item.id}`);
+    }
+  };
 
   return (
     <>

@@ -36,6 +36,7 @@ const trendingSlice = createSlice({
     builder.addCase(getTrending.fulfilled, (state, action) => {
       state.trending = action.payload;
     });
+    
     ////////////////////////////////////////////////////////////////////////
 
     builder.addCase(changeTrending.fulfilled, (state, action) => {
