@@ -32,8 +32,9 @@ export default function Home() {
       console.log(res);
       if (res.payload.message === "success") {
         ////////
+        localStorage.setItem("token", res.payload.token);
         alert("successfully login process");
-        router.push("/")
+        router.push("/");
       }
     }
   };

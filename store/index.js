@@ -4,14 +4,20 @@ import movieSlice from "./movieSlice";
 import tvShowsSlice from "./tvShows";
 import trendingSlice from "./trendingSlice";
 import userLoginAuth from "./userLoginAuth";
+import movieDetailsSlice from "./movieDetailsSlice";
+import tvDetailsSlice from "./tvDetailsSlice";
+import personSlice from "./personSlice";
 
 const store = configureStore({
   reducer: {
     userAuthSlice,
-    movieSlice,
-    tvShowsSlice,
-    trendingSlice,
     userLoginAuth,
+    movieSlice,
+    movieDetailsSlice,
+    tvShowsSlice,
+    tvDetailsSlice,
+    trendingSlice,
+    personSlice,
   },
 });
 

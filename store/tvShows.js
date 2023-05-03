@@ -15,9 +15,6 @@ const tvShowsSlice = createSlice({
     isLoading: false,
   },
   extraReducers: (builder) => {
-    builder.addCase(getTvShows.pending, (state, action) => {
-      console.log(action);
-    });
     builder.addCase(getTvShows.fulfilled, (state, action) => {
       state.tv = action.payload;
     });

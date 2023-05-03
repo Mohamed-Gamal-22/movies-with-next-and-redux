@@ -3,10 +3,18 @@ import store from "./../store/index";
 import style from "../styles/tvshows.module.css";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
+import { useRouter } from "next/router";
+// can i use Link insted of userouter and what is the defference ?
+
 
 export default function tvShows({ TvShows }) {
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
-  const [searchTv, setSearchTv]= useState([])
+  const [searchTv, setSearchTv] = useState([]);
+  const router = useRouter();
+
+  // i did not use usedispatch and useselector inside useEffect 
+  // because it will render in client side
+  // so insted i use getserverside props at the end of the page
 
   const searchMovie = (name) => {
     let tv = TvShows.results.filter((tv) =>
@@ -14,8 +22,13 @@ export default function tvShows({ TvShows }) {
         ? tv.name.toLowerCase().includes(name.toLowerCase())
         : tv.title.toLowerCase().includes(name.toLowerCase())
     );
-    setSearchTv(tv)
+    setSearchTv(tv);
   };
+
+  const goToDetails = (id) => {
+    router.push(`/details/tvDetails/${id}`);
+  };
+
   return (
     <>
       <div className="container">
@@ -23,7 +36,7 @@ export default function tvShows({ TvShows }) {
         <h1 className="text-white text-center text-capitalize pb-0 mt-5 mb-0">
           all trending <span className="text-warning fw-bold">tv shows</span>
         </h1>
-        <SearchBar searchMovie={searchMovie}/>
+        <SearchBar searchMovie={searchMovie} />
         <div className="row g-3 my-4">
           {TvShows.results.length > 0 && searchTv.length == 0
             ? TvShows.results.map((e, index) => (
@@ -36,7 +49,7 @@ export default function tvShows({ TvShows }) {
                     />
                     <div className={`${style.over}`}>
                       <div
-                        // onClick={() => goToDetails(e.id, e.media_type)}
+                        onClick={() => goToDetails(e.id)}
                         className={`btn btn-danger rounded-pill ${style.btn}`}
                       >
                         Read More...
@@ -49,27 +62,27 @@ export default function tvShows({ TvShows }) {
                 </div>
               ))
             : searchTv.map((e, index) => (
-              <div key={index} className="col-lg-2 col-md-3 col-sm-4 col-6">
-                <div className={`${style.smallimg} position-relative`}>
-                  <img
-                    className={`${style.img}`}
-                    alt="img"
-                    src={baseUrlImg + e.poster_path}
-                  />
-                  <div className={`${style.over}`}>
-                    <div
-                      // onClick={() => goToDetails(e.id, e.media_type)}
-                      className={`btn btn-danger rounded-pill ${style.btn}`}
-                    >
-                      Read More...
+                <div key={index} className="col-lg-2 col-md-3 col-sm-4 col-6">
+                  <div className={`${style.smallimg} position-relative`}>
+                    <img
+                      className={`${style.img}`}
+                      alt="img"
+                      src={baseUrlImg + e.poster_path}
+                    />
+                    <div className={`${style.over}`}>
+                      <div
+                        onClick={() => goToDetails(e.id)}
+                        className={`btn btn-danger rounded-pill ${style.btn}`}
+                      >
+                        Read More...
+                      </div>
+                      <h6 className="text-capitalize rounded bg-transparent p-1 mt-1 position-absolute start-0 bottom-0 m-3 text-warning">
+                        {e.name ? e.name : e.title}
+                      </h6>
                     </div>
-                    <h6 className="text-capitalize rounded p-1 mt-1 position-absolute start-0 bottom-0 m-3 text-warning">
-                      {e.name ? e.name : e.title}
-                    </h6>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
         </div>
       </div>
     </>

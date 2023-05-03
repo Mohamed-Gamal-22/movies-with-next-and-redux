@@ -1,9 +1,19 @@
 import Link from "next/link";
 import style from "./Navbar.module.css";
 import { useSelector } from "react-redux";
+import dynamic from "next/dynamic";
 
-export default function Navbar() {
+// look at error end of this page
+
+const Navbar = () => {
   const { userData } = useSelector((state) => state.userLoginAuth);
+
+
+  // do this to reload page to set userData inside slice to be null
+  const logOut = () => {
+    localStorage.removeItem("token")
+    window.location.href = `${window.location.origin}/login`
+  }
 
   return (
     <>
@@ -39,17 +49,17 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={`nav-link ${style.color}`} href="movies">
+                  <Link className={`nav-link ${style.color}`} href="/movies">
                     Movies
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={`nav-link ${style.color}`} href="tvShows">
+                  <Link className={`nav-link ${style.color}`} href="/tvShows">
                     Tv Shows
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={`nav-link ${style.color}`} href="about">
+                  <Link className={`nav-link ${style.color}`} href="/about">
                     About
                   </Link>
                 </li>
@@ -111,7 +121,7 @@ export default function Navbar() {
                   </>
                 ) : (
                   <li className="nav-item">
-                    <Link className={`nav-link ${style.color}`} href="login">
+                    <Link className={`nav-link ${style.color}`} href="" onClick={logOut}>
                       Logout
                     </Link>
                   </li>
@@ -123,4 +133,8 @@ export default function Navbar() {
       </nav>
     </>
   );
-}
+};
+
+// error clint side doesn't match server side if i use some data
+// this line solve this problem
+export default dynamic(() => Promise.resolve(Navbar), { ssr: false });

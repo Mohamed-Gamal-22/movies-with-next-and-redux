@@ -34,6 +34,10 @@ export default function Carousle({ trending }) {
     },
   };
 
+  // const goToDetails = (item) => {
+  //   console.log(item);
+  // };
+
   return (
     <>
       {trending.results.length > 0 ? (
@@ -52,7 +56,7 @@ export default function Carousle({ trending }) {
                     />
                     <div className={`${style.over}`}>
                       <div
-                        //   onClick={() => goToDetails(movie.id, movie.media_type)}
+                        onClick={() => goToDetails(movie)}
                         className={`btn btn-danger rounded-pill ${style.btn}`}
                       >
                         Read More...

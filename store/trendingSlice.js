@@ -20,6 +20,8 @@ export const changeTrending = createAsyncThunk(
   }
 );
 
+/////////////////////////////////////////////////////////////////////////////
+
 const trendingSlice = createSlice({
   name: "trending",
   initialState: {

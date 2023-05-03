@@ -5,7 +5,7 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const checkLoginUser = createAsyncThunk(
   "userAuth/userLogin",
-  async (user, thunkAPI) => {
+  async (user) => {
     const { data } = await axios.post(
       `https://sticky-note-fe.vercel.app/signin`,
       user
@@ -19,12 +19,12 @@ const userLoginAuth = createSlice({
   initialState: {
     message: "",
     loading: false,
-    userData: null,
+    userData:
+      typeof window !== "undefined" ? localStorage.token
+        ? jwtDecode(localStorage.getItem("token"))
+        : null : null
   },
   extraReducers: (builder) => {
-    builder.addCase(checkLoginUser.pending, (state, action) => {
-      state.loading = true;
-    });
     builder.addCase(checkLoginUser.fulfilled, (state, action) => {
       state.message = action.payload.message;
       state.loading = false;
